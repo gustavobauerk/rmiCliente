@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>PrimeFaces</title>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+            <h:form id="form">
+                <p:layout fullPage="true">
+                    <p:layoutUnit position="north" header="Passagem" style="text-align: center"/> 
+                    <p:layoutUnit position="west" size="175" header="Menu">
+                        <ui:include src="menu.xhtml"/>
+                    </p:layoutUnit>
+
+                    <p:layoutUnit id="body" position="center">
+                        <div class="ui-g">
+                            <h:panelGrid  columns="4" cellpadding="10px">
+                                <h:panelGroup>
+                                    <p:outputLabel for="source" value="Origem:" style="display: block"/>
+                                    <p:inputText value="" id="source"/> 
+                                </h:panelGroup>
+                                <h:panelGroup>
+                                    <p:outputLabel for="destination" value="Destino:" style="display: block"/>
+                                    <p:inputText value="" id="destination"/> 
+                                </h:panelGroup>
+                                <h:panelGroup>
+                                    <p:outputLabel for="flightdate" value="Data de Ida:" style="display: block"/>
+                                    <p:inputMask mask="99/99/9999" value="" id="flightdate"/> 
+                                </h:panelGroup>
+                                <h:panelGroup>
+                                    <p:outputLabel for="flightdateVolta" value="Data de Volta:" style="display: block"/>
+                                    <p:inputMask mask="99/99/9999" value="" id="flightdateVolta"/> 
+                                </h:panelGroup>
+                                <h:panelGroup>
+                                    <p:outputLabel for="ida" value="Ida e volta :" style="display: block"/>
+                                    <p:selectBooleanCheckbox id="ida" value="#{passagemBean.ida}"/> 
+                                </h:panelGroup>
+                            </h:panelGrid>
+                            <h:panelGroup style="float: left; padding: 10px">
+                                <p:commandButton 
+                                    action="#{passagemBean.search(false)}"
+                                    value="Pesquisar"/>
+                            </h:panelGroup>
+                        </div>
+                        <div class="ui-g">
+                            <p:dataTable emptyMessage="Não há viagens" id="passagemTable" value="#{passagemBean.trip}" var="trip">
+                                <p:column headerText="Origem" id="source">
+                                    <h:outputText value="#{trip.source}"
+                                </p:column>
+                                <p:column headerText="Destino" id="destination">
+                                    <h:outputText value="#{trip.destination}"
+                                </p:column>
+                                <p:column headerText="Data de ida do voo" id="source" rendered="#{trip.ida}">
+                                    <h:outputText value="#{trip.source}"
+                                </p:column>
+                                <p:column headerText="Data de volta do voo" id="source">
+                                    <h:outputText value="#{trip.source}"
+                                </p:column>
+                                <p:column headerText="Data do voo" id="source">
+                                    <h:outputText value="#{trip.source}"
+                                </p:column>
+                            </p:dataTable>
+                        </div>
+                    </p:layoutUnit>
+                </p:layout>
+            </h:form>
+        </h:body>
+    </f:view>
+</html>
+
