@@ -9,64 +9,70 @@
         <h:head>
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-                <title>PrimeFaces</title>
+                <title>Agencia de turismo</title>
             </f:facet>
         </h:head>
 
         <h:body>
             <h:form id="form">
                 <p:layout fullPage="true">
-                    <p:layoutUnit position="north" header="Passagem" style="text-align: center"/> 
+                    <p:layoutUnit position="north" header="Passagem" style="text-align: center"/>
                     <p:layoutUnit position="west" size="175" header="Menu">
                         <ui:include src="menu.xhtml"/>
                     </p:layoutUnit>
-
+                    <p:growl id="growl" showDetail="true" sticky="true" />
                     <p:layoutUnit id="body" position="center">
                         <div class="ui-g">
-                            <h:panelGrid  columns="4" cellpadding="10px">
+                            <h:panelGrid  columns="6" cellpadding="10px">
                                 <h:panelGroup>
                                     <p:outputLabel for="source" value="Origem:" style="display: block"/>
-                                    <p:inputText value="" id="source"/> 
+                                    <p:inputText value="#{passagemBean.source}" id="source"/>
                                 </h:panelGroup>
                                 <h:panelGroup>
                                     <p:outputLabel for="destination" value="Destino:" style="display: block"/>
-                                    <p:inputText value="" id="destination"/> 
+                                    <p:inputText value="#{passagemBean.destination}" id="destination"/>
                                 </h:panelGroup>
                                 <h:panelGroup>
                                     <p:outputLabel for="flightdate" value="Data de Ida:" style="display: block"/>
-                                    <p:inputMask mask="99/99/9999" value="" id="flightdate"/> 
+                                    <p:inputMask mask="9999-99-99" value="#{passagemBean.flightdate}" id="flightdate"/>
                                 </h:panelGroup>
                                 <h:panelGroup>
                                     <p:outputLabel for="flightdateVolta" value="Data de Volta:" style="display: block"/>
-                                    <p:inputMask mask="99/99/9999" value="" id="flightdateVolta"/> 
+                                    <p:inputMask mask="9999-99-99" value="#{passagemBean.flightdateVolta}" id="flightdateVolta"/>
+                                </h:panelGroup>
+                                <h:panelGroup>
+                                    <p:outputLabel for="numberOfAirfares" value="Quantidade de passagens:" style="display: block"/>
+                                    <p:inputText value="#{passagemBean.numberOfAirfares}" id="numberOfAirfares"/>
                                 </h:panelGroup>
                                 <h:panelGroup>
                                     <p:outputLabel for="ida" value="Ida e volta :" style="display: block"/>
-                                    <p:selectBooleanCheckbox id="ida" value="#{passagemBean.ida}"/> 
+                                    <p:selectBooleanCheckbox id="ida" value="#{passagemBean.ida}"/>
                                 </h:panelGroup>
                             </h:panelGrid>
                             <h:panelGroup style="float: left; padding: 10px">
-                                <p:commandButton 
-                                    action="#{passagemBean.search(false)}"
-                                    value="Pesquisar"/>
+                                <p:commandButton
+                                    action="#{passagemBean.search()}"
+                                    value="Pesquisar"
+                                    update="passagemTable"/>
+
                             </h:panelGroup>
                         </div>
                         <div class="ui-g">
-                            <p:dataTable emptyMessage="Não há viagens" id="passagemTable" value="#{passagemBean.trip}" var="trip">
+                            <p:dataTable emptyMessage="Não há viagens" id="passagemTable" value="#{passagemBean.trip}" var="item">
                                 <p:column headerText="Origem" id="source">
-                                    <h:outputText value="#{trip.source}"
+                                    <h:outputText value="#{item.source}"/>
                                 </p:column>
                                 <p:column headerText="Destino" id="destination">
-                                    <h:outputText value="#{trip.destination}"
+                                    <h:outputText value="#{item.destination}"/>
                                 </p:column>
-                                <p:column headerText="Data de ida do voo" id="source" rendered="#{trip.ida}">
-                                    <h:outputText value="#{trip.source}"
+                                <p:column headerText="Data de ida do voo" id="flightIda">
+                                    <h:outputText value="#{item.begin}"/>
                                 </p:column>
-                                <p:column headerText="Data de volta do voo" id="source">
-                                    <h:outputText value="#{trip.source}"
+                                <p:column headerText="Data de volta do voo" id="flightVolta">
+                                    <h:outputText value="#{item.end}"/>
                                 </p:column>
-                                <p:column headerText="Data do voo" id="source">
-                                    <h:outputText value="#{trip.source}"
+                                <p:column headerText="Comprar" id="buy">
+                                    <h:commandButton value="comprar" action="#{passagemBean.comprar()}"/>
                                 </p:column>
                             </p:dataTable>
                         </div>

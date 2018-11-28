@@ -11,7 +11,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import principal.Trip;
+import principal.Hotel;
 import rmi.Cliente;
 
 /**
@@ -20,18 +20,16 @@ import rmi.Cliente;
  */
 @ManagedBean
 @ViewScoped
-public class passagemBean {
-    private List<Trip> trip = new ArrayList<>();
-    private boolean ida;
-    private String source;
-    private String destination;
+public class hotelBean {
+    private List<Hotel> hotel = new ArrayList<>();
+    private String name;
     private String flightdate;
     private String flightdateVolta;
-    private int numberOfAirfares;
+    private int numberOfRooms;
+    private int numberOfPeople;
     private final Cliente cliente;
-    private boolean deuBoa;
 
-    public passagemBean() {
+    public hotelBean() {
         cliente = new Cliente();
     }
 
@@ -39,52 +37,36 @@ public class passagemBean {
      * Consulta passagem
      */
     public void search() {
-        trip = new ArrayList<>();
-        Trip trips = cliente.consultaPassagem(ida, source, destination, flightdate, flightdateVolta, numberOfAirfares);
-        if (trips != null) {
-            trip.add(trips);
+        hotel = new ArrayList<>();
+        Hotel hotels = cliente.consultaHotel(name, flightdate, flightdateVolta, numberOfRooms, numberOfPeople);
+        if (hotels != null) {
+            hotel.add(hotels);
         }
     }
 
     public void comprar() {
-        deuBoa = cliente.compraPassagem(ida, source, destination, flightdate, flightdateVolta, numberOfAirfares);
-        if (deuBoa) {
+        boolean a = cliente.compraHotel(name, flightdate, flightdateVolta, numberOfRooms, numberOfPeople);
+        if (a) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Compra concluida com sucesso."));
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning!", "Erro na compra."));
         }
     }
 
-    public List<Trip> getTrip() {
-        return trip;
+    public List<Hotel> getHotel() {
+        return hotel;
     }
 
-    public void setTrip(List<Trip> trip) {
-        this.trip = trip;
+    public void setHotel(List<Hotel> hotel) {
+        this.hotel = hotel;
     }
 
-    public boolean isIda() {
-        return ida;
+    public String getName() {
+        return name;
     }
 
-    public void setIda(boolean ida) {
-        this.ida = ida;
-    }
-
-    public String getSource() {
-        return source;
-    }
-
-    public void setSource(String source) {
-        this.source = source;
-    }
-
-    public String getDestination() {
-        return destination;
-    }
-
-    public void setDestination(String destination) {
-        this.destination = destination;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getFlightdate() {
@@ -103,12 +85,20 @@ public class passagemBean {
         this.flightdateVolta = flightdateVolta;
     }
 
-    public int getNumberOfAirfares() {
-        return numberOfAirfares;
+    public int getNumberOfRooms() {
+        return numberOfRooms;
     }
 
-    public void setNumberOfAirfares(int numberOfAirfares) {
-        this.numberOfAirfares = numberOfAirfares;
+    public void setNumberOfRooms(int numberOfRooms) {
+        this.numberOfRooms = numberOfRooms;
+    }
+
+    public int getNumberOfPeople() {
+        return numberOfPeople;
+    }
+
+    public void setNumberOfPeople(int numberOfPeople) {
+        this.numberOfPeople = numberOfPeople;
     }
 
 }

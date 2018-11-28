@@ -9,39 +9,64 @@
         <h:head>
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-                <title>PrimeFaces</title>
+                <title>Agencia de turismo</title>
             </f:facet>
         </h:head>
 
         <h:body>
             <h:form id="form">
                 <p:layout fullPage="true">
-                    <p:layoutUnit position="north" header="Hotel" style="text-align: center"/> 
+                    <p:layoutUnit position="north" header="Hotel" style="text-align: center"/>
                     <p:layoutUnit position="west" size="175" header="Menu">
                         <ui:include src="menu.xhtml"/>
                     </p:layoutUnit>
 
+                    <p:growl id="growl" showDetail="true" sticky="true" />
                     <p:layoutUnit id="body" position="center">
-                        <h:panelGrid cellpadding="10px">
-                            <h:panelGroup>
-                                <p:outputLabel for="Hotel" value="Hotel:" style="display: block"/>
-                                <p:inputText value="" id="Hotel"/> 
+                        <div class="ui-g">
+                            <h:panelGrid  columns="6" cellpadding="10px">
+                                <h:panelGroup>
+                                    <p:outputLabel for="hotel" value="Hotel:" style="display: block"/>
+                                    <p:inputText value="#{hotelBean.name}" id="hotel"/>
+                                </h:panelGroup>
+                                <h:panelGroup>
+                                    <p:outputLabel for="flightdate" value="Data de Entrada" style="display: block"/>
+                                    <p:inputMask mask="9999-99-99" value="#{hotelBean.flightdate}" id="flightdate"/>
+                                </h:panelGroup>
+                                <h:panelGroup>
+                                    <p:outputLabel for="flightdateVolta" value="Data de Saida:" style="display: block"/>
+                                    <p:inputMask mask="9999-99-99" value="#{hotelBean.flightdateVolta}" id="flightdateVolta"/>
+                                </h:panelGroup>
+                                <h:panelGroup>
+                                    <p:outputLabel for="numberOfAirfares" value="Quantidade de quartos:" style="display: block"/>
+                                    <p:inputText value="#{hotelBean.numberOfRooms}" id="numberOfAirfares"/>
+                                </h:panelGroup>
+                                <h:panelGroup>
+                                    <p:outputLabel for="numberOfPeopel" value="Quantidade de pessoas:" style="display: block"/>
+                                    <p:inputText value="#{hotelBean.numberOfPeople}" id="numberOfPeopel"/>
+                                </h:panelGroup>
+                            </h:panelGrid>
+                            <h:panelGroup style="float: left; padding: 10px">
+                                <p:commandButton
+                                    action="#{hotelBean.search()}"
+                                    value="Pesquisar"
+                                    update="hotelTable"/>
                             </h:panelGroup>
-                            <h:panelGroup>
-                                <p:outputLabel for="entrance" value="Data de entrada:" style="display: block"/>
-                                <p:inputMask mask="99/99/9999" value="" id="entrance"/> 
-                            </h:panelGroup>
-                            <h:panelGroup>
-                                <p:outputLabel for="exit" value="Data de entrada:" style="display: block"/>
-                                <p:inputMask mask="99/99/9999" value="" id="entrance"/> 
-                            </h:panelGroup>
-                            <h:panelGroup>
-                                <p:outputLabel for="entrance" value="Data de entrada:" style="display: block"/>
-                                <p:inputMask mask="99/99/9999" value="" id="entrance"/> 
-                            </h:panelGroup>
-                        </h:panelGrid> 
+                        </div>
+                        <div class="ui-g">
+                            <p:dataTable emptyMessage="Não há hoteis" id="hotelTable" value="#{hotelBean.hotel}" var="item">
+                                <p:column headerText="Hotel" id="hotel">
+                                    <h:outputText value="#{item.city}"/>
+                                </p:column>
+                                <p:column headerText="Preço" id="destination">
+                                    <h:outputText value="#{item.price}"/>
+                                </p:column>
+                                <p:column headerText="Comprar" id="buy">
+                                    <h:commandButton value="comprar" action="#{hotelBean.comprar()}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </div>
                     </p:layoutUnit>
-
                 </p:layout>
             </h:form>
         </h:body>

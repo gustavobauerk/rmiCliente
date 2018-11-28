@@ -9,43 +9,87 @@
         <h:head>
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-                <title>PrimeFaces</title>
+                <title>Agencia de turismo</title>
             </f:facet>
         </h:head>
 
         <h:body>
             <h:form id="form">
                 <p:layout fullPage="true">
-                    <p:layoutUnit position="north" header="Pacotes" style="text-align: center"/> 
+                    <p:layoutUnit position="north" header="Passagem" style="text-align: center"/>
                     <p:layoutUnit position="west" size="175" header="Menu">
                         <ui:include src="menu.xhtml"/>
                     </p:layoutUnit>
-
+                    <p:growl id="growl" showDetail="true" sticky="true" />
                     <p:layoutUnit id="body" position="center">
-                        <h:panelGrid cellpadding="10px">
-                            <h:panelGroup>
-                                <p:outputLabel for="Hotel" value="Hotel:" style="display: block"/>
-                                <p:inputText value="" id="Hotel"/> 
-                            </h:panelGroup>
-                            <h:panelGroup>
-                                <p:outputLabel for="entrance" value="Data de entrada:" style="display: block"/>
-                                <p:inputMask mask="99/99/9999" value="" id="entrance"/> 
-                            </h:panelGroup>
-                            <h:panelGroup>
-                                <p:outputLabel for="entrance" value="Data de entrada:" style="display: block"/>
-                                <p:inputMask mask="99/99/9999" value="" id="entrance"/> 
-                            </h:panelGroup>
-                            <h:panelGroup>
-                                <p:outputLabel for="entrance" value="Data de entrada:" style="display: block"/>
-                                <p:inputMask mask="99/99/9999" value="" id="entrance"/> 
-                            </h:panelGroup>
-                        </h:panelGrid> 
-                    </p:layoutUnit>
+                        <div class="ui-g">
+                            <h:panelGrid  columns="6" cellpadding="10px">
+                                <h:panelGroup>
+                                    <p:outputLabel for="source" value="Origem:" style="display: block"/>
+                                    <p:inputText value="#{pacoteBean.source}" id="source"/>
+                                </h:panelGroup>
+                                <h:panelGroup>
+                                    <p:outputLabel for="destination" value="Destino:" style="display: block"/>
+                                    <p:inputText value="#{pacoteBean.destination}" id="destination"/>
+                                </h:panelGroup>
+                                <h:panelGroup>
+                                    <p:outputLabel for="flightdate" value="Data de Ida:" style="display: block"/>
+                                    <p:inputMask mask="9999-99-99" value="#{pacoteBean.flightdate}" id="flightdate"/>
+                                </h:panelGroup>
+                                <h:panelGroup>
+                                    <p:outputLabel for="flightdateVolta" value="Data de Volta:" style="display: block"/>
+                                    <p:inputMask mask="9999-99-99" value="#{pacoteBean.flightdateVolta}" id="flightdateVolta"/>
+                                </h:panelGroup>
+                                <h:panelGroup>
+                                    <p:outputLabel for="numberOfQuartos" value="Quantidade de quartos:" style="display: block"/>
+                                    <p:inputText value="#{pacoteBean.numberOfRooms}" id="numberOfQuartos"/>
+                                </h:panelGroup>
+                                <h:panelGroup>
+                                    <p:outputLabel for="numberOfAirfares" value="Quantidade de passagens:" style="display: block"/>
+                                    <p:inputText value="#{pacoteBean.numberOfAirfares}" id="numberOfAirfares"/>
+                                </h:panelGroup>
+                                <h:panelGroup>
+                                    <p:outputLabel for="ida" value="Ida e volta :" style="display: block"/>
+                                    <p:selectBooleanCheckbox id="ida" value="#{pacoteBean.ida}"/>
+                                </h:panelGroup>
+                            </h:panelGrid>
+                            <h:panelGroup style="float: left; padding: 10px">
+                                <p:commandButton
+                                    action="#{pacoteBean.search()}"
+                                    value="Pesquisar"
+                                    update="packTable"/>
 
+                            </h:panelGroup>
+                        </div>
+                        <div class="ui-g">
+                            <p:dataTable emptyMessage="Não há viagens" id="packTable" value="#{pacoteBean.pack}" var="item">
+                                <p:column headerText="Origem" id="source">
+                                    <h:outputText value="#{item.source}"/>
+                                </p:column>
+                                <p:column headerText="Destino" id="destination">
+                                    <h:outputText value="#{item.destination}"/>
+                                </p:column>
+                                <p:column headerText="Hotel" id="hotel">
+                                    <h:outputText value="#{item.city}"/>
+                                </p:column>
+                                <p:column headerText="Data de ida" id="flightIda">
+                                    <h:outputText value="#{item.begin}"/>
+                                </p:column>
+                                <p:column headerText="Data de saida" id="flightVolta">
+                                    <h:outputText value="#{item.end}"/>
+                                </p:column>
+                                <p:column headerText="Preço" id="price">
+                                    <h:outputText value="#{item.price}"/>
+                                </p:column>
+                                <p:column headerText="Comprar" id="buy">
+                                    <h:commandButton value="comprar" action="#{pacoteBean.comprar()}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </div>
+                    </p:layoutUnit>
                 </p:layout>
             </h:form>
         </h:body>
-
     </f:view>
 </html>
 

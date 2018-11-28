@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Agencia de turismo</title>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+            <h:form id="form">
+                <p:layout fullPage="true">
+                    <p:layoutUnit position="north" header="Registro de interesse" style="text-align: center"/>
+                    <p:layoutUnit position="west" size="175" header="Menu">
+                        <ui:include src="menu.xhtml"/>
+                    </p:layoutUnit>
+                    <p:growl id="growl" showDetail="true" sticky="true" />
+                    <p:layoutUnit id="body" position="center">
+                        <div class="ui-g">
+                            <h:panelGrid  columns="6" cellpadding="10px">
+                                <h:panelGroup>
+                                    <p:outputLabel for="source" value="Evento:" style="display: block"/>
+                                    <p:inputText value="#{registroBean.source}" id="source"/>
+                                </h:panelGroup>
+                                <h:panelGroup>
+                                    <p:outputLabel for="destination" value="Destino:" style="display: block"/>
+                                    <p:inputText value="#{registroBean.destination}" id="destination"/>
+                                </h:panelGroup>
+                                <h:panelGroup>
+                                    <p:outputLabel for="flightdate" value="Preço máximo:" style="display: block"/>
+                                    <p:inputText value="#{registroBean.price}" id="flightdate"/>
+                                </h:panelGroup>
+                            </h:panelGrid>
+                            <h:panelGroup style="float: left; padding: 10px">
+                                <p:commandButton
+                                    action="#{registroBean.registry()}"
+                                    value="Pesquisar"/>
+                            </h:panelGroup>
+                        </div>
+                    </p:layoutUnit>
+                </p:layout>
+            </h:form>
+        </h:body>
+    </f:view>
+</html>
+
