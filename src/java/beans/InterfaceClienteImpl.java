@@ -4,6 +4,9 @@ import interfaces.InterfaceCliente;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
+/**
+ * Interface para os métodos disponiveis no cliente
+ */
 public class InterfaceClienteImpl extends UnicastRemoteObject implements InterfaceCliente {
     protected InterfaceClienteImpl() throws RemoteException {
         super();
@@ -11,11 +14,11 @@ public class InterfaceClienteImpl extends UnicastRemoteObject implements Interfa
 
     /**
      * Notifica o usuário que a viagem interessada está disponivel
-     * @param nomeArq
+     * @param evento quak eventi está disponivel
      */
     @Override
-    public void notificar(String nomeArq) {
-        System.out.println("Viagem " + nomeArq + " disponivel");
+    public void notificar(String evento) {
+        System.out.println(evento + " disponivel");
     }
 
 }

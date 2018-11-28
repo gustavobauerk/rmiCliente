@@ -1,10 +1,5 @@
 package principal;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -54,46 +49,82 @@ public class Trip implements Serializable {
     }
 
     /**
-     * Retorna
-     * @return
+     * Retorna origem
+     * @return origem
      */
     public String getSource() {
         return source;
     }
 
+    /**
+     * Define origem
+     * @param source origem
+     */
     public void setSource(String source) {
         this.source = source;
     }
 
+    /**
+     * Retorna destino
+     * @return destino
+     */
     public String getDestination() {
         return destination;
     }
 
+    /**
+     * Define destino
+     * @param destination destino
+     */
     public void setDestination(String destination) {
         this.destination = destination;
     }
 
+    /**
+     * Retorna Data de ida
+     * @return data de ida
+     */
     public LocalDate getBegin() {
         return begin;
     }
 
+    /**
+     * Define Data de ida
+     * @param begin Data de ida
+     */
     public void setBegin(LocalDate begin) {
         this.begin = begin;
     }
 
+    /**
+     * Retorna Data de volta
+     * @return Data de volta
+     */
     public LocalDate getEnd() {
         return end;
     }
 
+    /**
+     * Define Data de volta
+     * @param end Data de volta
+     */
     public void setEnd(LocalDate end) {
         this.end = end;
     }
 
-    public Integer getNumberOfAirfares() {
+    /**
+     * Retorna numero de passagens
+     * @return numero de passagens
+     */
+    public int getNumberOfAirfares() {
         return numberOfAirfares;
     }
 
-    public void setNumberOfAirfares(Integer numberOfAirfares) {
+    /**
+     * Define numero de passagens
+     * @param numberOfAirfares numero de passagens
+     */
+    public void setNumberOfAirfares(int numberOfAirfares) {
         this.numberOfAirfares = numberOfAirfares;
     }
 

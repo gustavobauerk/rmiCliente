@@ -13,17 +13,34 @@ import javax.faces.bean.ViewScoped;
 import rmi.Cliente;
 
 /**
- *
- * @author Gustavo
+ * Managedbean para registro de interesse
  */
 @ManagedBean
 @ViewScoped
 public class registroBean {
+    /**
+     * Evento
+     */
     private String source;
+    /**
+     * Destino
+     */
     private String destination;
+    /**
+     * Preço
+     */
     private Integer price;
+    /**
+     * Cliente para acesso ao server
+     */
     private final Cliente cliente;
+    /**
+     * Implementação para interface do cliente
+     */
     private InterfaceClienteImpl interfaceCliente;
+    /**
+     * Instancia cliente e interface
+     */
     public registroBean() {
         cliente = new Cliente();
         try {
@@ -33,29 +50,56 @@ public class registroBean {
         }
     }
 
+    /**
+     * Registra interesse
+     */
     public void registry(){
         cliente.registrarInteresse(source, this.interfaceCliente, destination, price);
     }
+    /**
+     * Retorna evento
+     * @return evento
+     */
     public String getSource() {
         return source;
     }
 
+    /**
+     * Define evento
+     * @param source evento
+     */
     public void setSource(String source) {
         this.source = source;
     }
 
+    /**
+     * Retorna destino
+     * @return destino
+     */
     public String getDestination() {
         return destination;
     }
 
+    /**
+     * Define destino
+     * @param destination destino
+     */
     public void setDestination(String destination) {
         this.destination = destination;
     }
 
+    /**
+     * Retorna preço
+     * @return preço
+     */
     public Integer getPrice() {
         return price;
     }
 
+    /**
+     * Define preço
+     * @param price preço
+     */
     public void setPrice(Integer price) {
         this.price = price;
     }

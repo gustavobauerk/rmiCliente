@@ -9,10 +9,14 @@ import java.rmi.registry.Registry;
 import principal.Hotel;
 import principal.Trip;
 
+/**
+ * Classe que instancia a interface do server e se conecta ao servidor
+ */
 public class Cliente {
     private InterfaceServ server;
-    private InterfaceClienteImpl interfaceCliente;
-
+    /**
+     * Conecta ao server
+     */
     public Cliente() {
         try {
             System.setProperty("java.security.policy", "file:java.policy");
@@ -29,6 +33,16 @@ public class Cliente {
         }
     }
 
+    /**
+     * Retorna uma passagem
+     * @param ida false só ida, true ida e volta
+     * @param source da onde está viajanto
+     * @param destination para onde está viajando
+     * @param dateIda data de ida do voo
+     * @param passagens numero de passagenes desejadas
+     * @param dateVolta data do voo de volta
+     * @return a passagem caso encontrada
+     */
     public Trip consultaPassagem(boolean ida, String source, String destination, String dateIda,
         String dateVolta, int passagens) {
         Trip result = new Trip();
@@ -40,6 +54,16 @@ public class Cliente {
         return result;
     }
 
+    /**
+     * Retorna o resultado da compra de uma passagem
+     * @param ida false só ida, true ida e volta
+     * @param source da onde está viajanto
+     * @param destination para onde está viajando
+     * @param flightdate data de ida do voo
+     * @param numberOfAirfares numero de passagenes desejadas
+     * @param flightdateVolta data do voo de volta
+     * @return true caso a compre de certo, false no contrário
+     */
     public boolean compraPassagem(boolean ida, String source, String destination, String flightdate, String flightdateVolta, int numberOfAirfares) {
         boolean result = false;
         try {
@@ -51,6 +75,15 @@ public class Cliente {
         return result;
     }
 
+    /**
+     * Retorna o resultado da compra de um hotel
+     * @param name nome do hotel
+     * @param flightdate data de entrada no hotel
+     * @param flightdateVolta data de volta no hotel
+     * @param numberOfRooms numero de quartos desejados
+     * @param numberOfPeople numero de pessoas viajando
+     * @return true caso a compre de certo, false no contrário
+     */
     public Hotel consultaHotel(String name, String flightdate, String flightdateVolta, int numberOfRooms, int numberOfPeople) {
         Hotel result = new Hotel();
         try {
@@ -61,6 +94,15 @@ public class Cliente {
         return result;
     }
 
+    /**
+     * Retorna um hotel baseado nos filtros de pesquisa
+     * @param name nome do hotel
+     * @param flightdate data de entrada no hotel
+     * @param flightdateVolta data de volta no hotel
+     * @param numberOfRooms numero de quartos desejados
+     * @param numberOfPeople numero de pessoas viajando
+     * @return um hotel
+     */
     public boolean compraHotel(String name, String flightdate, String flightdateVolta, int numberOfRooms, int numberOfPeople) {
         boolean result = false;
         try {
@@ -72,6 +114,13 @@ public class Cliente {
         return result;
     }
 
+    /**
+     * Registra o interesse em um evento
+     * @param source nome do evento(viagem, hotel, pacote)
+     * @param a o cliente
+     * @param destination destino do evento
+     * @param price preço máximo a ser pago pelo cliente
+     */
     public void registrarInteresse(String source,InterfaceClienteImpl a, String destination, Integer price) {
         try {
             server.registerInterest(source, a, destination, price);
